@@ -1,4 +1,4 @@
-[8:34 am, 28/10/2024] Ahmed Abdelnasser: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,36 +14,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <h3>Map of Locations</h3>
-    <div id="map"></div>
-
-    <script>
-        // إنشاء الخريطة وضبط المركز ومستوى التكبير
-        var map = L.map('map').setView([27.816572, 30.546781], 10);
-
-        // إضافة طبقة البلاط من OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            …
-[12:50 pm, 28/10/2024] Ahmed Abdelnasser: <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Map</title>
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-        .custom-icon {
-            background-color: transparent; /* لجعل الخلفية شفافة */
-        }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body>
-    <h3>Map of Locations</h3>
+    <h3>Map of Locations Ahmed</h3>
     <div id="map"></div>
 
     <script>
@@ -55,16 +26,22 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // تعريف أيقونة مخصصة مع ألوان مختلفة
-        var customIcon = L.divIcon({
-            className: 'custom-icon',
-            html: '<div style="width: 25px; height: 41px; background: linear-gradient(to right, green 50%, red 50%); border-radius: 5px;"></div>',
+        // تعريف الأيقونات الحمراء والزرقاء
+        var redIcon = L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-red.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
-            popupAnchor: [1, -34]
+            popupAnchor: [1, -34],
         });
 
-        // إضافة المواقع وعلامات (دبابيس) للخريطة
+        var blueIcon = L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-blue.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+        });
+
+        // قائمة المواقع
         var locations = [
             {"name": "مصنع القناة للسكر", "lat": 27.816572, "lon": 30.546781},
             {"name": "اهناسيا", "lat": 29.0898017, "lon": 30.94701},
@@ -95,10 +72,11 @@
             {"name": "تنده", "lat": 27.6816568, "lon": 30.7772453},
         ];
 
-        // إضافة العلامات لكل موقع باستخدام الأيقونة المخصصة
-        locations.forEach(function(location) {
-            var marker = L.marker([location.lat, location.lon], { icon: customIcon }).addTo(map);
-            marker.bindPopup(<a href='https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lon}' target='_blank'>${location.name}</a>);
+        // إضافة العلامات لكل موقع مع تحديد لونين مختلفين بالتناوب
+        locations.forEach(function(location, index) {
+            var myIcon = index % 2 === 0 ? redIcon : blueIcon; // تبديل الأيقونات بالتناوب
+            var marker = L.marker([location.lat, location.lon], {icon: myIcon}).addTo(map);
+            marker.bindPopup(`<a href='https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lon}' target='_blank'>${location.name}</a>`);
         });
     </script>
 </body>
