@@ -55,13 +55,38 @@
             {"name": "بوش", "lat": 29.1476833, "lon": 31.1172683},
             {"name": "تلت", "lat": 28.855097576938, "lon": 30.8296101540327},
             {"name": "تنده", "lat": 27.6816568, "lon": 30.7772453},
-        ];
+        ];     
 
         // إضافة العلامات لكل موقع
         locations.forEach(function(location) {
             var marker = L.marker([location.lat, location.lon]).addTo(map);
             marker.bindPopup(`<a href='https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lon}' target='_blank'>${location.name}</a>`);
         });
+
+      // تعريف الأيقونات بألوان مختلفة لكل فئة
+            var redIcon = L.icon({ ... });
+            var greenIcon = L.icon({ ... });
+            var blueIcon = L.icon({ ... });
+
+    // إضافة العلامات لكل موقع مع تحديد اللون حسب الفئة
+        locations.forEach(function(location) {
+            var icon;
+        if (location.category === "industrial") {
+                icon = redIcon;
+            } else if (location.category === "agricultural") {
+            icon = greenIcon;
+            } else {
+            icon = blueIcon;
+    }
+
+            var marker = L.marker([location.lat, location.lon], {icon: icon}).addTo(map);
+    // ... باقي الكود
+    });
+
+
+
+
+        
     </script>
 </body>
 </html>
